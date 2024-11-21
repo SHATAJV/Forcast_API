@@ -5,6 +5,7 @@ city_1 = "Toulouse"
 city_2 = "Saint-Geours-de-Maremne"
 BASE_URL = "http://api.openweathermap.org/data/2.5/forecast"
 
+
 def get_weather(city):
     params = {
         "q": city,
@@ -18,5 +19,35 @@ def get_weather(city):
         print(f"error to get {city}: {response.status_code}")
         return None
 
+
 forecast_toulouse = get_weather(city_1)
 forecast_saint_geours = get_weather(city_2)
+
+
+def temperatures(weather):
+    daily_forecast = {}
+    for entry in weather["list"]:
+        date = entry["dt_txt"].split(" ")[0]
+        temp_min = entry["main"]["temp_min"]
+        temp_max = entry["main"]["temp_max"]
+
+        if date not in daily_forecast:
+            daily_forecast[date] = {"min": temp_min, "max": temp_max}
+        else:
+            daily_forecast[date]["min"] = min(daily_forecast[date]["min"], temp_min)
+            daily_forecast[date]["max"] = max(daily_forecast[date]["max"], temp_max)
+        return daily_forecast
+
+
+if forecast_toulouse:
+    toulouse_temps = temperatures(forecast_toulouse)
+    print("Temperature forecast for Toulouse:")
+    for date, temps in toulouse_temps.items():
+        print(f"{date}: Min {temps['min']}°C, Max {temps['max']}°C")
+
+
+if forecast_saint_geours:
+    saint_geours_temps = temperatures(forecast_saint_geours)
+    print("Temperature forecast for Saint-Geours-de-Maremne:")
+    for date, temps in saint_geours_temps.items():
+        print(f"{date}: Min {temps['min']}°C, Max {temps['max']}°C")
