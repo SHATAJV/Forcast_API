@@ -26,13 +26,14 @@ def get_weather(city):
     response = requests.get(BASE_URL, params=params)
     if response.status_code == 200:
         return response.json()
+    
     else:
         print(f"Error fetching data for {city}: {response.status_code}")
         return None
 
 
 forecast_toulouse = get_weather(city_1)
-forecast_saint_geours = get_weather(city_2)
+forecast_saint_geours_de_maremne = get_weather(city_2)
 
 
 def temperatures(weather):
@@ -70,8 +71,8 @@ if forecast_toulouse:
     for date, temps in toulouse_temps.items():
         print(f"{date}: Min {temps['min']}°C, Max {temps['max']}°C")
 
-if forecast_saint_geours:
-    saint_geours_temps = temperatures(forecast_saint_geours)
+if forecast_saint_geours_de_maremne:
+    saint_geours_temps = temperatures(forecast_saint_geours_de_maremne)
     print("\nTemperature forecast for Saint-Geours-de-Maremne:")
     for date, temps in saint_geours_temps.items():
         print(f"{date}: Min {temps['min']}°C, Max {temps['max']}°C")
