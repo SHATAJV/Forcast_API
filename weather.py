@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime, timedelta
 
-API_KEY = "b463363b67496203f845ecd8ede6e02a"
+API_KEY = "*"
 city_1 = "Toulouse"
 city_2 = "Saint-Geours-de-Maremne"
 city_3= "Teheran"
