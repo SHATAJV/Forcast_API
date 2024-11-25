@@ -26,7 +26,7 @@ def get_weather(city):
     """
     params = {
         "q": city,
-        "appid": API_KEY,
+        "appid": api_key,
         "units": "metric",
     }
     response = requests.get(BASE_URL, params=params)
